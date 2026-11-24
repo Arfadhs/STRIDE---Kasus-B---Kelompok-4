@@ -1,0 +1,886 @@
+{
+  "version": "2.6.2",
+  "release_version": "0.1",
+  "released_at": "2026-11-24",
+  "summary": {
+    "title": "STRIDE - Kasus B - Kelompok 4",
+    "owner": "Kelompok 4",
+    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup). [Asumsi 1]: Komunikasi browser ke Backend Dokumen menggunakan HTTPS. [Asumsi 2]: Pemilik dokumen dan admin telah terautentikasi sebelum mengakses sistem. [Asumsi 3]: Database Metadata dan Object Storage berada di jaringan internal tertutup. [Asumsi 4]: Identitas tautan menggunakan token acak dengan entropi tinggi.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Ali Abdul Fattah Alim Kautsar"
+      },
+      {
+        "name": "Arif Fadlil Hasibuan"
+      },
+      {
+        "name": "Gending Lokananta Dwi Saputra"
+      },
+      {
+        "name": "Andika Arya Saputra"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "DFD Berbagi Dokumen Tautan Sementara",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.6.2",
+        "description": "Aliran unggah dokumen, pembuatan tautan sementara, akses penerima eksternal, dan pencatatan log audit.",
+        "cells": [
+          {
+            "position": {
+              "x": 420,
+              "y": 20
+            },
+            "size": {
+              "width": 540,
+              "height": 340
+            },
+            "attrs": {
+              "label": {
+                "text": "Trust Boundary: Sistem Internal Organisasi"
+              }
+            },
+            "visible": true,
+            "shape": "trust-boundary-box",
+            "zIndex": -1,
+            "id": "b1a10001-0001-4000-8000-000000000001",
+            "data": {
+              "type": "tm.BoundaryBox",
+              "name": "Trust Boundary: Sistem Internal Organisasi",
+              "description": "",
+              "isTrustBoundary": true,
+              "hasOpenThreats": false,
+              "crossingFlows": [
+                "f1a10001-0001-4000-8000-000000000001",
+                "f1a10001-0001-4000-8000-000000000002",
+                "f1a10001-0001-4000-8000-000000000003",
+                "f1a10001-0001-4000-8000-000000000004",
+                "f1a10001-0001-4000-8000-000000000005",
+                "f1a10001-0001-4000-8000-000000000006"
+              ],
+              "containedElements": [
+                "p1a10001-0001-4000-8000-000000000001",
+                "s1a10001-0001-4000-8000-000000000001",
+                "s1a10001-0001-4000-8000-000000000002"
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 50
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Pemilik Dokumen"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000001",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Pemilik Dokumen",
+              "description": "",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 165
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Penerima Eksternal"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000002",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Penerima Eksternal",
+              "description": "",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "providesAuthentication": false,
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000001",
+                  "title": "Penebakan token tautan berbagi oleh pihak tidak berwenang",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pihak eksternal yang tidak berhak menebak atau melakukan brute-force terhadap identitas tautan pada permintaan akses karena token tautan memiliki entropi rendah (asumsi token acak panjang belum diterapkan optimal), maka pihak tersebut dapat menyamar sebagai penerima sah dan mengunduh dokumen.",
+                  "mitigation": "Gunakan generator token kriptografis acak minimal 128-bit untuk setiap URL tautan berbagi dan terapkan pembatasan laju permintaan (rate limiting) pada endpoint akses tautan.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 1,
+                  "score": "6 (L=2, I=3)"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 90,
+              "y": 280
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Admin Organisasi"
+              },
+              "body": {
+                "stroke": "#333333",
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "actor",
+            "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000003",
+            "data": {
+              "type": "tm.Actor",
+              "name": "Admin Organisasi",
+              "description": "",
+              "isTrustBoundary": false,
+              "outOfScope": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "providesAuthentication": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 470,
+              "y": 145
+            },
+            "size": {
+              "width": 135,
+              "height": 95
+            },
+            "attrs": {
+              "text": {
+                "text": "Backend Dokumen"
+              },
+              "body": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "process",
+            "zIndex": 2,
+            "id": "p1a10001-0001-4000-8000-000000000001",
+            "data": {
+              "type": "tm.Process",
+              "name": "Backend Dokumen",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "handlesCardPayment": false,
+              "handlesGoodsOrServices": false,
+              "isWebApplication": true,
+              "privilegeLevel": "",
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000003",
+                  "title": "Aktivitas pembuatan dan pencabutan tautan tidak tercatat di audit log",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Skor Risiko: 4 (L=2, I=2). Jika Backend Dokumen gagal mencatat identitas aktor, stempel waktu, atau aksi pencabutan tautan ke dalam audit log secara utuh, maka pemilik dokumen atau admin dapat menyangkal telah membagikan atau mencabut akses suatu dokumen sensitif.",
+                  "mitigation": "Terapkan pencatatan audit log wajib (append-only) pada Backend Dokumen untuk setiap aksi unggah, pembuatan tautan, pencabutan, dan pengunduhan lengkap dengan timestamp dan ID pengguna.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "4 (L=2, I=2)"
+                },
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000006",
+                  "title": "Penerima eksternal tanpa login mengakses fungsi pencabutan atau daftar tautan",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika Backend Dokumen tidak memisahkan otorisasi antara endpoint publik (unduh via tautan) dan endpoint terautentikasi (kelola tautan), maka penerima eksternal tanpa login dapat mengakses fungsi manajemen tautan milik pemilik dokumen.",
+                  "mitigation": "Terapkan middleware autentikasi dan pemeriksaan peran (RBAC) secara ketat pada seluruh endpoint manajemen dokumen dan tautan agar hanya dapat diakses oleh pemilik yang terautentikasi.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "6 (L=2, I=3)"
+                }
+              ]
+            }
+          },
+          {
+            "position": {
+              "x": 800,
+              "y": 75
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Database Metadata"
+              },
+              "topLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "strokeWidth": 1.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 3,
+            "id": "s1a10001-0001-4000-8000-000000000001",
+            "data": {
+              "type": "tm.Store",
+              "name": "Database Metadata",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isALog": true,
+              "isEncrypted": false,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": []
+            }
+          },
+          {
+            "position": {
+              "x": 800,
+              "y": 245
+            },
+            "size": {
+              "width": 130,
+              "height": 60
+            },
+            "attrs": {
+              "text": {
+                "text": "Object Storage"
+              },
+              "topLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              },
+              "bottomLine": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "strokeDasharray": null
+              }
+            },
+            "visible": true,
+            "shape": "store",
+            "zIndex": 3,
+            "id": "s1a10001-0001-4000-8000-000000000002",
+            "data": {
+              "type": "tm.Store",
+              "name": "Object Storage",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isALog": false,
+              "isEncrypted": true,
+              "isSigned": false,
+              "storesCredentials": false,
+              "storesInventory": false,
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000004",
+                  "title": "Akses langsung isi file oleh Admin Organisasi yang melanggar aturan bisnis",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika konfigurasi hak akses Object Storage tidak memisahkan izin baca antara layanan backend dan akun administratif internal, maka Admin Organisasi yang seharusnya hanya boleh melihat metadata dan log dapat membaca isi dokumen rahasia secara langsung.",
+                  "mitigation": "Terapkan kebijakan akses berbasis peran (IAM/RBAC) yang ketat pada Object Storage sehingga hanya service account Backend Dokumen yang memiliki izin baca objek, serta aktifkan enkripsi data at-rest.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "6 (L=2, I=3)"
+                },
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000005",
+                  "title": "Pengunggahan file berukuran masif menghabiskan kapasitas Object Storage",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pengguna mengunggah file berukuran sangat besar secara berulang tanpa pembatasan kuota (dengan asumsi batas ukuran unggahan belum dikonfigurasi), maka kapasitas Object Storage akan penuh sehingga layanan penyimpanan tidak dapat melayani pengguna lain.",
+                  "mitigation": "Tetapkan batas maksimal ukuran file per unggahan, kuota penyimpanan per pengguna, serta pembatasan frekuensi unggahan pada Backend Dokumen.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "6 (L=2, I=3)"
+                }
+              ]
+            }
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "red",
+                "strokeWidth": 2.5,
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Unggah file & perintah buat/cabut tautan",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": true,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000002",
+                  "title": "Manipulasi parameter ID tautan untuk mencabut akses milik pengguna lain",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pengguna mengubah parameter identitas tautan atau ID dokumen pada aliran permintaan pencabutan tautan dan Backend tidak memverifikasi kepemilikan objek, maka pengguna dapat membatalkan tautan berbagi milik pemilik dokumen lain secara tidak sah.",
+                  "mitigation": "Lakukan validasi otorisasi berbasis kepemilikan (ownership check) di sisi server setiap kali menerima permintaan pembuatan atau pencabutan tautan.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "6 (L=2, I=3)"
+                }
+              ],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "Unggah file & perintah buat/cabut tautan"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000001",
+            "source": {
+              "cell": "a1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 95
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "URL tautan berbagi & daftar tautan aktif",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "URL tautan berbagi & daftar tautan aktif"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000002",
+            "source": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "a1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 55
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Permintaan akses & unduh via tautan",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "Permintaan akses & unduh via tautan"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000003",
+            "source": {
+              "cell": "a1a10001-0001-4000-8000-000000000002"
+            },
+            "target": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 175
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Halaman unduh & aliran file",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "Halaman unduh & aliran file"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000004",
+            "source": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "a1a10001-0001-4000-8000-000000000002"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 215
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Permintaan tinjau metadata & audit log",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "Permintaan tinjau metadata & audit log"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000005",
+            "source": {
+              "cell": "a1a10001-0001-4000-8000-000000000003"
+            },
+            "target": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 285
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Data metadata & catatan audit log",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": [
+                "b1a10001-0001-4000-8000-000000000001"
+              ]
+            },
+            "labels": [
+              "Data metadata & catatan audit log"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000006",
+            "source": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "a1a10001-0001-4000-8000-000000000003"
+            },
+            "vertices": [
+              {
+                "x": 340,
+                "y": 325
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Simpan/cek metadata, status tautan & log",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": [],
+              "trustBoundaryIds": []
+            },
+            "labels": [
+              "Simpan/cek metadata, status tautan & log"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000007",
+            "source": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "s1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 695,
+                "y": 90
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Hasil query metadata & validasi tautan",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": false,
+              "isPublicNetwork": false,
+              "protocol": "SQL",
+              "threats": [],
+              "trustBoundaryIds": []
+            },
+            "labels": [
+              "Hasil query metadata & validasi tautan"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000008",
+            "source": {
+              "cell": "s1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 695,
+                "y": 135
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Simpan & ambil isi file",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": []
+            },
+            "labels": [
+              "Simpan & ambil isi file"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000009",
+            "source": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "target": {
+              "cell": "s1a10001-0001-4000-8000-000000000002"
+            },
+            "vertices": [
+              {
+                "x": 695,
+                "y": 240
+              }
+            ]
+          },
+          {
+            "shape": "flow",
+            "attrs": {
+              "line": {
+                "stroke": "#333333",
+                "targetMarker": {
+                  "name": "block"
+                },
+                "sourceMarker": {
+                  "name": ""
+                },
+                "strokeDasharray": null
+              }
+            },
+            "zIndex": 10,
+            "connector": "smooth",
+            "data": {
+              "type": "tm.Flow",
+              "name": "Aliran isi file terunduh",
+              "description": "",
+              "outOfScope": false,
+              "isTrustBoundary": false,
+              "reasonOutOfScope": "",
+              "hasOpenThreats": false,
+              "isBidirectional": false,
+              "isEncrypted": true,
+              "isPublicNetwork": false,
+              "protocol": "HTTPS",
+              "threats": [],
+              "trustBoundaryIds": []
+            },
+            "labels": [
+              "Aliran isi file terunduh"
+            ],
+            "id": "f1a10001-0001-4000-8000-000000000010",
+            "source": {
+              "cell": "s1a10001-0001-4000-8000-000000000002"
+            },
+            "target": {
+              "cell": "p1a10001-0001-4000-8000-000000000001"
+            },
+            "vertices": [
+              {
+                "x": 695,
+                "y": 285
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "Dosen Praktikum",
+    "threatTop": 6
+  }
+}
