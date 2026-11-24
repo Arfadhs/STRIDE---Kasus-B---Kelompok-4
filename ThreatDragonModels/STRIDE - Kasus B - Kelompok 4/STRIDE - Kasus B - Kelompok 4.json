@@ -1,11 +1,11 @@
 {
   "version": "2.6.2",
   "release_version": "0.1",
-  "released_at": "2026-11-25",
+  "released_at": "2026-11-24",
   "summary": {
     "title": "STRIDE - Kasus B - Kelompok 4",
     "owner": "Kelompok 4",
-    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup).\n[Asumsi 1]: Komunikasi antara browser pengguna dengan Backend Dokumen dienkripsi menggunakan HTTPS.\n[Asumsi 2]: Pemilik dokumen dan admin organisasi telah melalui proses autentikasi akun sebelum mengakses sistem.\n[Asumsi 3]: Database Metadata dan Object Storage berada di jaringan internal yang tidak dapat diakses langsung dari internet publik.\n[Asumsi 4]: Identitas tautan berbagi dibuat menggunakan token acak yang panjang, bukan nomor urut sederhana.",
+    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup). [Asumsi 1]: Komunikasi browser ke Backend Dokumen menggunakan HTTPS. [Asumsi 2]: Pemilik dokumen dan admin telah terautentikasi sebelum mengakses sistem. [Asumsi 3]: Database Metadata dan Object Storage berada di jaringan internal tertutup. [Asumsi 4]: Identitas tautan menggunakan token acak dengan entropi tinggi.",
     "id": 0
   },
   "detail": {
@@ -26,20 +26,21 @@
     "diagrams": [
       {
         "id": 0,
-        "title": "awal",
+        "title": "DFD Berbagi Dokumen Tautan Sementara",
         "diagramType": "STRIDE",
         "placeholder": "New STRIDE diagram description",
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
         "version": "2.6.2",
+        "description": "Aliran unggah dokumen, pembuatan tautan sementara, akses penerima eksternal, dan pencatatan log audit.",
         "cells": [
           {
             "position": {
-              "x": -596.0000000000009,
-              "y": -377.00000000000045
+              "x": 420,
+              "y": 20
             },
             "size": {
-              "width": 610,
-              "height": 390
+              "width": 540,
+              "height": 340
             },
             "attrs": {
               "label": {
@@ -48,8 +49,8 @@
             },
             "visible": true,
             "shape": "trust-boundary-box",
-            "id": "89e0202b-c1eb-48ff-af3b-56a3fa35eb81",
             "zIndex": -1,
+            "id": "b1a10001-0001-4000-8000-000000000001",
             "data": {
               "type": "tm.BoundaryBox",
               "name": "Trust Boundary: Sistem Internal Organisasi",
@@ -57,27 +58,27 @@
               "isTrustBoundary": true,
               "hasOpenThreats": false,
               "crossingFlows": [
-                "1f3d1c4b-2537-4e2b-8ee1-29a23be0d887",
-                "4aa226c7-52a7-4038-88fc-04dd537405b0",
-                "dfab033e-aa1c-40ec-8bc9-01f605601a7f",
-                "66334bee-f62f-465f-b4fe-c44b6b0cdca3",
-                "4dac21b8-71d3-4fbb-b82d-fa6a03394657",
-                "021231cf-dccb-46e1-abfa-e78148cecf02"
+                "f1a10001-0001-4000-8000-000000000001",
+                "f1a10001-0001-4000-8000-000000000002",
+                "f1a10001-0001-4000-8000-000000000003",
+                "f1a10001-0001-4000-8000-000000000004",
+                "f1a10001-0001-4000-8000-000000000005",
+                "f1a10001-0001-4000-8000-000000000006"
               ],
               "containedElements": [
-                "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-                "84df46c8-812f-4ff2-8eae-199878563893",
-                "fa12300a-4d8b-45e5-8d57-6c4585030061"
+                "p1a10001-0001-4000-8000-000000000001",
+                "s1a10001-0001-4000-8000-000000000001",
+                "s1a10001-0001-4000-8000-000000000002"
               ]
             }
           },
           {
             "position": {
-              "x": -1000,
-              "y": -310
+              "x": 90,
+              "y": 50
             },
             "size": {
-              "width": 112.5,
+              "width": 130,
               "height": 60
             },
             "attrs": {
@@ -92,90 +93,8 @@
             },
             "visible": true,
             "shape": "actor",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "b440ab40-1d63-4fd4-8c69-8c4c60adeb4d"
-                },
-                {
-                  "group": "right",
-                  "id": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
-                },
-                {
-                  "group": "bottom",
-                  "id": "62a1f65a-7407-4718-8ef6-97b2bf9827bd"
-                },
-                {
-                  "group": "left",
-                  "id": "82abdc90-fd59-42fa-aaa1-7f88f537599d"
-                }
-              ]
-            },
-            "id": "69e0c882-7b4c-4b19-b6f9-26360d57d69c",
             "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000001",
             "data": {
               "type": "tm.Actor",
               "name": "Pemilik Dokumen",
@@ -190,11 +109,11 @@
           },
           {
             "position": {
-              "x": -1000,
-              "y": -212
+              "x": 90,
+              "y": 165
             },
             "size": {
-              "width": 112.5,
+              "width": 130,
               "height": 60
             },
             "attrs": {
@@ -209,90 +128,8 @@
             },
             "visible": true,
             "shape": "actor",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "b440ab40-1d63-4fd4-8c69-8c4c60adeb4d"
-                },
-                {
-                  "group": "right",
-                  "id": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
-                },
-                {
-                  "group": "bottom",
-                  "id": "62a1f65a-7407-4718-8ef6-97b2bf9827bd"
-                },
-                {
-                  "group": "left",
-                  "id": "82abdc90-fd59-42fa-aaa1-7f88f537599d"
-                }
-              ]
-            },
-            "id": "e31f6cb4-2e4f-442a-8f41-4039129765e6",
-            "zIndex": 2,
+            "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000002",
             "data": {
               "type": "tm.Actor",
               "name": "Penerima Eksternal",
@@ -304,7 +141,7 @@
               "providesAuthentication": false,
               "threats": [
                 {
-                  "id": "e6aed02c-c513-492c-8bcf-470704429742",
+                  "id": "t1a10001-0001-4000-8000-000000000001",
                   "title": "Penebakan token tautan berbagi oleh pihak tidak berwenang",
                   "status": "Open",
                   "severity": "High",
@@ -313,23 +150,19 @@
                   "mitigation": "Gunakan generator token kriptografis acak minimal 128-bit untuk setiap URL tautan berbagi dan terapkan pembatasan laju permintaan (rate limiting) pada endpoint akses tautan.",
                   "modelType": "STRIDE",
                   "new": false,
-                  "number": 2,
+                  "number": 1,
                   "score": "6 (L=2, I=3)"
                 }
-              ],
-              "threatFrequency": {
-                "spoofing": 1,
-                "repudiation": 0
-              }
+              ]
             }
           },
           {
             "position": {
-              "x": -1000,
-              "y": -117
+              "x": 90,
+              "y": 280
             },
             "size": {
-              "width": 112.5,
+              "width": 130,
               "height": 60
             },
             "attrs": {
@@ -344,90 +177,8 @@
             },
             "visible": true,
             "shape": "actor",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "b440ab40-1d63-4fd4-8c69-8c4c60adeb4d"
-                },
-                {
-                  "group": "right",
-                  "id": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
-                },
-                {
-                  "group": "bottom",
-                  "id": "62a1f65a-7407-4718-8ef6-97b2bf9827bd"
-                },
-                {
-                  "group": "left",
-                  "id": "82abdc90-fd59-42fa-aaa1-7f88f537599d"
-                }
-              ]
-            },
-            "id": "473f3185-b8ea-4342-be4c-b85e423ab856",
-            "zIndex": 3,
+            "zIndex": 1,
+            "id": "a1a10001-0001-4000-8000-000000000003",
             "data": {
               "type": "tm.Actor",
               "name": "Admin Organisasi",
@@ -442,109 +193,27 @@
           },
           {
             "position": {
-              "x": -567,
-              "y": -267
+              "x": 470,
+              "y": 145
             },
             "size": {
-              "width": 140,
-              "height": 140
+              "width": 135,
+              "height": 95
             },
             "attrs": {
               "text": {
                 "text": "Backend Dokumen"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "process",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "9fa0c821-6d79-4cc4-9c85-a84d4382fc71"
-                },
-                {
-                  "group": "right",
-                  "id": "72026fd5-0f69-42d1-88a1-5b5dfe15d7d4"
-                },
-                {
-                  "group": "bottom",
-                  "id": "664817c8-367e-44d5-998d-bc95604d95aa"
-                },
-                {
-                  "group": "left",
-                  "id": "53f1a4d3-cc2c-4546-9c63-60416e8a6587"
-                }
-              ]
-            },
-            "id": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-            "zIndex": 4,
+            "zIndex": 2,
+            "id": "p1a10001-0001-4000-8000-000000000001",
             "data": {
               "type": "tm.Process",
               "name": "Backend Dokumen",
@@ -552,21 +221,48 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "handlesCardPayment": false,
               "handlesGoodsOrServices": false,
-              "isWebApplication": false,
+              "isWebApplication": true,
               "privilegeLevel": "",
-              "threats": []
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000003",
+                  "title": "Aktivitas pembuatan dan pencabutan tautan tidak tercatat di audit log",
+                  "status": "Open",
+                  "severity": "Medium",
+                  "type": "Repudiation",
+                  "description": "Skor Risiko: 4 (L=2, I=2). Jika Backend Dokumen gagal mencatat identitas aktor, stempel waktu, atau aksi pencabutan tautan ke dalam audit log secara utuh, maka pemilik dokumen atau admin dapat menyangkal telah membagikan atau mencabut akses suatu dokumen sensitif.",
+                  "mitigation": "Terapkan pencatatan audit log wajib (append-only) pada Backend Dokumen untuk setiap aksi unggah, pembuatan tautan, pencabutan, dan pengunduhan lengkap dengan timestamp dan ID pengguna.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 3,
+                  "score": "4 (L=2, I=2)"
+                },
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000006",
+                  "title": "Penerima eksternal tanpa login mengakses fungsi pencabutan atau daftar tautan",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Elevation of privilege",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika Backend Dokumen tidak memisahkan otorisasi antara endpoint publik (unduh via tautan) dan endpoint terautentikasi (kelola tautan), maka penerima eksternal tanpa login dapat mengakses fungsi manajemen tautan milik pemilik dokumen.",
+                  "mitigation": "Terapkan middleware autentikasi dan pemeriksaan peran (RBAC) secara ketat pada seluruh endpoint manajemen dokumen dan tautan agar hanya dapat diakses oleh pemilik yang terautentikasi.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 6,
+                  "score": "6 (L=2, I=3)"
+                }
+              ]
             }
           },
           {
             "position": {
-              "x": -188,
-              "y": -310
+              "x": 800,
+              "y": 75
             },
             "size": {
-              "width": 120,
+              "width": 130,
               "height": 60
             },
             "attrs": {
@@ -584,90 +280,8 @@
             },
             "visible": true,
             "shape": "store",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "e093a0fd-794c-4aad-84d8-99eb39aff3a9"
-                },
-                {
-                  "group": "right",
-                  "id": "dd7368d9-4899-43ef-802f-00341ed6366d"
-                },
-                {
-                  "group": "bottom",
-                  "id": "7b1a5818-47cf-4c48-84d4-1c0a8ea55e07"
-                },
-                {
-                  "group": "left",
-                  "id": "25fb1ef4-39bf-400b-b7dc-bbcbf9f33c6a"
-                }
-              ]
-            },
-            "id": "84df46c8-812f-4ff2-8eae-199878563893",
-            "zIndex": 5,
+            "zIndex": 3,
+            "id": "s1a10001-0001-4000-8000-000000000001",
             "data": {
               "type": "tm.Store",
               "name": "Database Metadata",
@@ -676,7 +290,7 @@
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
-              "isALog": false,
+              "isALog": true,
               "isEncrypted": false,
               "isSigned": false,
               "storesCredentials": false,
@@ -686,11 +300,11 @@
           },
           {
             "position": {
-              "x": -188,
-              "y": -117
+              "x": 800,
+              "y": 245
             },
             "size": {
-              "width": 120,
+              "width": 130,
               "height": 60
             },
             "attrs": {
@@ -698,100 +312,20 @@
                 "text": "Object Storage"
               },
               "topLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               },
               "bottomLine": {
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
             "visible": true,
             "shape": "store",
-            "ports": {
-              "groups": {
-                "top": {
-                  "position": "top",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "right": {
-                  "position": "right",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "bottom": {
-                  "position": "bottom",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                },
-                "left": {
-                  "position": "left",
-                  "attrs": {
-                    "circle": {
-                      "r": 4,
-                      "magnet": true,
-                      "stroke": "#5F95FF",
-                      "strokeWidth": 1,
-                      "fill": "#fff",
-                      "style": {
-                        "visibility": "hidden"
-                      }
-                    }
-                  }
-                }
-              },
-              "items": [
-                {
-                  "group": "top",
-                  "id": "e093a0fd-794c-4aad-84d8-99eb39aff3a9"
-                },
-                {
-                  "group": "right",
-                  "id": "dd7368d9-4899-43ef-802f-00341ed6366d"
-                },
-                {
-                  "group": "bottom",
-                  "id": "7b1a5818-47cf-4c48-84d4-1c0a8ea55e07"
-                },
-                {
-                  "group": "left",
-                  "id": "25fb1ef4-39bf-400b-b7dc-bbcbf9f33c6a"
-                }
-              ]
-            },
-            "id": "fa12300a-4d8b-45e5-8d57-6c4585030061",
-            "zIndex": 6,
+            "zIndex": 3,
+            "id": "s1a10001-0001-4000-8000-000000000002",
             "data": {
               "type": "tm.Store",
               "name": "Object Storage",
@@ -799,20 +333,48 @@
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isALog": false,
-              "isEncrypted": false,
+              "isEncrypted": true,
               "isSigned": false,
               "storesCredentials": false,
               "storesInventory": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000004",
+                  "title": "Akses langsung isi file oleh Admin Organisasi yang melanggar aturan bisnis",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Information disclosure",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika konfigurasi hak akses Object Storage tidak memisahkan izin baca antara layanan backend dan akun administratif internal, maka Admin Organisasi yang seharusnya hanya boleh melihat metadata dan log dapat membaca isi dokumen rahasia secara langsung.",
+                  "mitigation": "Terapkan kebijakan akses berbasis peran (IAM/RBAC) yang ketat pada Object Storage sehingga hanya service account Backend Dokumen yang memiliki izin baca objek, serta aktifkan enkripsi data at-rest.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 4,
+                  "score": "6 (L=2, I=3)"
+                },
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000005",
+                  "title": "Pengunggahan file berukuran masif menghabiskan kapasitas Object Storage",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Denial of service",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pengguna mengunggah file berukuran sangat besar secara berulang tanpa pembatasan kuota (dengan asumsi batas ukuran unggahan belum dikonfigurasi), maka kapasitas Object Storage akan penuh sehingga layanan penyimpanan tidak dapat melayani pengguna lain.",
+                  "mitigation": "Tetapkan batas maksimal ukuran file per unggahan, kuota penyimpanan per pengguna, serta pembatasan frekuensi unggahan pada Backend Dokumen.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 5,
+                  "score": "6 (L=2, I=3)"
+                }
+              ]
             }
           },
           {
             "shape": "flow",
             "attrs": {
               "line": {
-                "stroke": "#333333",
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "targetMarker": {
                   "name": "block"
                 },
@@ -822,47 +384,53 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
               "type": "tm.Flow",
-              "name": "Data Flow",
+              "name": "Unggah file & perintah buat/cabut tautan",
               "description": "",
               "outOfScope": false,
               "isTrustBoundary": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
-              "threats": [],
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
+              "threats": [
+                {
+                  "id": "t1a10001-0001-4000-8000-000000000002",
+                  "title": "Manipulasi parameter ID tautan untuk mencabut akses milik pengguna lain",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Tampering",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pengguna mengubah parameter identitas tautan atau ID dokumen pada aliran permintaan pencabutan tautan dan Backend tidak memverifikasi kepemilikan objek, maka pengguna dapat membatalkan tautan berbagi milik pemilik dokumen lain secara tidak sah.",
+                  "mitigation": "Lakukan validasi otorisasi berbasis kepemilikan (ownership check) di sisi server setiap kali menerima permintaan pembuatan atau pencabutan tautan.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "6 (L=2, I=3)"
+                }
+              ],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "Unggah file & perintah buat/cabut tautan"
             ],
-            "id": "1f3d1c4b-2537-4e2b-8ee1-29a23be0d887",
+            "id": "f1a10001-0001-4000-8000-000000000001",
             "source": {
-              "cell": "69e0c882-7b4c-4b19-b6f9-26360d57d69c",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "53f1a4d3-cc2c-4546-9c63-60416e8a6587"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -790,
-                "y": -260
-              },
-              {
-                "x": -660,
-                "y": -230
+                "x": 340,
+                "y": 95
               }
             ]
           },
@@ -880,8 +448,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -893,34 +459,28 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "URL tautan berbagi & daftar tautan aktif"
             ],
-            "id": "4aa226c7-52a7-4038-88fc-04dd537405b0",
+            "id": "f1a10001-0001-4000-8000-000000000002",
             "source": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "9fa0c821-6d79-4cc4-9c85-a84d4382fc71"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "69e0c882-7b4c-4b19-b6f9-26360d57d69c",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -600,
-                "y": -280
-              },
-              {
-                "x": -770,
-                "y": -300
+                "x": 340,
+                "y": 55
               }
             ]
           },
@@ -938,8 +498,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -951,34 +509,28 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "Permintaan akses & unduh via tautan"
             ],
-            "id": "dfab033e-aa1c-40ec-8bc9-01f605601a7f",
+            "id": "f1a10001-0001-4000-8000-000000000003",
             "source": {
-              "cell": "e31f6cb4-2e4f-442a-8f41-4039129765e6",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000002"
             },
             "target": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "53f1a4d3-cc2c-4546-9c63-60416e8a6587"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -810,
-                "y": -210
-              },
-              {
-                "x": -730,
-                "y": -210
+                "x": 340,
+                "y": 175
               }
             ]
           },
@@ -996,8 +548,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1009,30 +559,28 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "Halaman unduh & aliran file"
             ],
-            "id": "66334bee-f62f-465f-b4fe-c44b6b0cdca3",
+            "id": "f1a10001-0001-4000-8000-000000000004",
             "source": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "664817c8-367e-44d5-998d-bc95604d95aa"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "e31f6cb4-2e4f-442a-8f41-4039129765e6",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000002"
             },
             "vertices": [
               {
-                "x": -790,
-                "y": -150
+                "x": 340,
+                "y": 215
               }
             ]
           },
@@ -1050,8 +598,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1063,34 +609,28 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "Permintaan tinjau metadata & audit log"
             ],
-            "id": "4dac21b8-71d3-4fbb-b82d-fa6a03394657",
+            "id": "f1a10001-0001-4000-8000-000000000005",
             "source": {
-              "cell": "473f3185-b8ea-4342-be4c-b85e423ab856",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000003"
             },
             "target": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "53f1a4d3-cc2c-4546-9c63-60416e8a6587"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -740,
-                "y": -87
-              },
-              {
-                "x": -620,
-                "y": -110
+                "x": 340,
+                "y": 285
               }
             ]
           },
@@ -1108,8 +648,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1121,30 +659,28 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
-              "isPublicNetwork": false,
-              "protocol": "",
+              "isEncrypted": true,
+              "isPublicNetwork": true,
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": [
-                "89e0202b-c1eb-48ff-af3b-56a3fa35eb81"
+                "b1a10001-0001-4000-8000-000000000001"
               ]
             },
             "labels": [
               "Data metadata & catatan audit log"
             ],
-            "id": "021231cf-dccb-46e1-abfa-e78148cecf02",
+            "id": "f1a10001-0001-4000-8000-000000000006",
             "source": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "664817c8-367e-44d5-998d-bc95604d95aa"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "473f3185-b8ea-4342-be4c-b85e423ab856",
-              "port": "d728ba0b-fb05-481c-8330-c3356a7b2f28"
+              "cell": "a1a10001-0001-4000-8000-000000000003"
             },
             "vertices": [
               {
-                "x": -630,
-                "y": -40
+                "x": 340,
+                "y": 325
               }
             ]
           },
@@ -1162,8 +698,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1177,30 +711,24 @@
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
-              "protocol": "",
+              "protocol": "SQL",
               "threats": [],
               "trustBoundaryIds": []
             },
             "labels": [
               "Simpan/cek metadata, status tautan & log"
             ],
-            "id": "396525c6-399e-495b-bcf4-4498b7d01017",
+            "id": "f1a10001-0001-4000-8000-000000000007",
             "source": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "72026fd5-0f69-42d1-88a1-5b5dfe15d7d4"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "84df46c8-812f-4ff2-8eae-199878563893",
-              "port": "25fb1ef4-39bf-400b-b7dc-bbcbf9f33c6a"
+              "cell": "s1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -340,
-                "y": -230
-              },
-              {
-                "x": -260,
-                "y": -260
+                "x": 695,
+                "y": 90
               }
             ]
           },
@@ -1218,8 +746,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1233,26 +759,24 @@
               "isBidirectional": false,
               "isEncrypted": false,
               "isPublicNetwork": false,
-              "protocol": "",
+              "protocol": "SQL",
               "threats": [],
               "trustBoundaryIds": []
             },
             "labels": [
               "Hasil query metadata & validasi tautan"
             ],
-            "id": "f99bfd4c-8ebc-48da-ba86-6102557b1472",
+            "id": "f1a10001-0001-4000-8000-000000000008",
             "source": {
-              "cell": "84df46c8-812f-4ff2-8eae-199878563893",
-              "port": "7b1a5818-47cf-4c48-84d4-1c0a8ea55e07"
+              "cell": "s1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "72026fd5-0f69-42d1-88a1-5b5dfe15d7d4"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -250,
-                "y": -197
+                "x": 695,
+                "y": 135
               }
             ]
           },
@@ -1270,8 +794,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1283,28 +805,26 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
+              "isEncrypted": true,
               "isPublicNetwork": false,
-              "protocol": "",
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": []
             },
             "labels": [
               "Simpan & ambil isi file"
             ],
-            "id": "053ebb68-d651-4c78-aa1a-9aefcec1b48f",
+            "id": "f1a10001-0001-4000-8000-000000000009",
             "source": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "72026fd5-0f69-42d1-88a1-5b5dfe15d7d4"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "target": {
-              "cell": "fa12300a-4d8b-45e5-8d57-6c4585030061",
-              "port": "25fb1ef4-39bf-400b-b7dc-bbcbf9f33c6a"
+              "cell": "s1a10001-0001-4000-8000-000000000002"
             },
             "vertices": [
               {
-                "x": -340,
-                "y": -160
+                "x": 695,
+                "y": 240
               }
             ]
           },
@@ -1322,8 +842,6 @@
                 "strokeDasharray": null
               }
             },
-            "width": 200,
-            "height": 100,
             "zIndex": 10,
             "connector": "smooth",
             "data": {
@@ -1335,51 +853,34 @@
               "reasonOutOfScope": "",
               "hasOpenThreats": false,
               "isBidirectional": false,
-              "isEncrypted": false,
+              "isEncrypted": true,
               "isPublicNetwork": false,
-              "protocol": "",
+              "protocol": "HTTPS",
               "threats": [],
               "trustBoundaryIds": []
             },
             "labels": [
               "Aliran isi file terunduh"
             ],
-            "id": "4807b579-b1c9-4569-a9dc-ceb1b7bb32bc",
+            "id": "f1a10001-0001-4000-8000-000000000010",
             "source": {
-              "cell": "fa12300a-4d8b-45e5-8d57-6c4585030061",
-              "port": "7b1a5818-47cf-4c48-84d4-1c0a8ea55e07"
+              "cell": "s1a10001-0001-4000-8000-000000000002"
             },
             "target": {
-              "cell": "4c016544-c4db-42ff-b9af-703a3f12c0f9",
-              "port": "72026fd5-0f69-42d1-88a1-5b5dfe15d7d4"
+              "cell": "p1a10001-0001-4000-8000-000000000001"
             },
             "vertices": [
               {
-                "x": -270,
-                "y": -80
-              },
-              {
-                "x": -370,
-                "y": -120
+                "x": 695,
+                "y": 285
               }
             ]
           }
-        ],
-        "description": "awal deskripsi"
-      },
-      {
-        "id": 1,
-        "title": "DFD Berbagi Dokumen Tautan Sementara",
-        "diagramType": "STRIDE",
-        "placeholder": "New STRIDE diagram description",
-        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
-        "version": "2.6.2",
-        "cells": [],
-        "description": "Aliran unggah dokumen, pembuatan tautan sementara, akses penerima eksternal, dan pencatatan log audit."
+        ]
       }
     ],
-    "diagramTop": 2,
+    "diagramTop": 1,
     "reviewer": "Dosen Praktikum",
-    "threatTop": 2
+    "threatTop": 6
   }
 }
