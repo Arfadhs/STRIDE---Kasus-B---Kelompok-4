@@ -26,7 +26,7 @@
     "diagrams": [
       {
         "id": 0,
-        "title": "DFD Berbagi Dokumen Tautan Sementara",
+        "title": "awal",
         "diagramType": "STRIDE",
         "placeholder": "New STRIDE diagram description",
         "thumbnail": "./public/content/images/thumbnail.stride.jpg",
@@ -1365,10 +1365,20 @@
             ]
           }
         ],
+        "description": "awal deskripsi"
+      },
+      {
+        "id": 1,
+        "title": "DFD Berbagi Dokumen Tautan Sementara",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.6.2",
+        "cells": [],
         "description": "Aliran unggah dokumen, pembuatan tautan sementara, akses penerima eksternal, dan pencatatan log audit."
       }
     ],
-    "diagramTop": 1,
+    "diagramTop": 2,
     "reviewer": "Dosen Praktikum",
     "threatTop": 2
   }
