@@ -202,8 +202,8 @@
                 "text": "Penerima Eksternal"
               },
               "body": {
-                "stroke": "#333333",
-                "strokeWidth": 1.5,
+                "stroke": "red",
+                "strokeWidth": 2.5,
                 "strokeDasharray": null
               }
             },
@@ -300,9 +300,27 @@
               "isTrustBoundary": false,
               "outOfScope": false,
               "reasonOutOfScope": "",
-              "hasOpenThreats": false,
+              "hasOpenThreats": true,
               "providesAuthentication": false,
-              "threats": []
+              "threats": [
+                {
+                  "id": "e6aed02c-c513-492c-8bcf-470704429742",
+                  "title": "Penebakan token tautan berbagi oleh pihak tidak berwenang",
+                  "status": "Open",
+                  "severity": "High",
+                  "type": "Spoofing",
+                  "description": "Skor Risiko: 6 (L=2, I=3). Jika pihak eksternal yang tidak berhak menebak atau melakukan brute-force terhadap identitas tautan pada permintaan akses karena token tautan memiliki entropi rendah (asumsi token acak panjang belum diterapkan optimal), maka pihak tersebut dapat menyamar sebagai penerima sah dan mengunduh dokumen.",
+                  "mitigation": "Gunakan generator token kriptografis acak minimal 128-bit untuk setiap URL tautan berbagi dan terapkan pembatasan laju permintaan (rate limiting) pada endpoint akses tautan.",
+                  "modelType": "STRIDE",
+                  "new": false,
+                  "number": 2,
+                  "score": "6 (L=2, I=3)"
+                }
+              ],
+              "threatFrequency": {
+                "spoofing": 1,
+                "repudiation": 0
+              }
             }
           },
           {
@@ -839,6 +857,10 @@
             },
             "vertices": [
               {
+                "x": -790,
+                "y": -260
+              },
+              {
                 "x": -660,
                 "y": -230
               }
@@ -1348,6 +1370,6 @@
     ],
     "diagramTop": 1,
     "reviewer": "Dosen Praktikum",
-    "threatTop": 0
+    "threatTop": 2
   }
 }
