@@ -1,0 +1,42 @@
+{
+  "version": "2.6.2",
+  "release_version": "0.1",
+  "released_at": "2026-11-25",
+  "summary": {
+    "title": "STRIDE - Kasus B - Kelompok 4",
+    "owner": "Kelompok 4",
+    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup).\n[Asumsi 1]: Komunikasi antara browser pengguna dengan Backend Dokumen dienkripsi menggunakan HTTPS.\n[Asumsi 2]: Pemilik dokumen dan admin organisasi telah melalui proses autentikasi akun sebelum mengakses sistem.\n[Asumsi 3]: Database Metadata dan Object Storage berada di jaringan internal yang tidak dapat diakses langsung dari internet publik.\n[Asumsi 4]: Identitas tautan berbagi dibuat menggunakan token acak yang panjang, bukan nomor urut sederhana.",
+    "id": 0
+  },
+  "detail": {
+    "contributors": [
+      {
+        "name": "Ali Abdul Fattah Alim Kautsar"
+      },
+      {
+        "name": "Arif Fadlil Hasibuan"
+      },
+      {
+        "name": "Gending Lokananta Dwi Saputra"
+      },
+      {
+        "name": "Andika Arya Saputra"
+      }
+    ],
+    "diagrams": [
+      {
+        "id": 0,
+        "title": "DFD Berbagi Dokumen Tautan Sementara",
+        "diagramType": "STRIDE",
+        "placeholder": "New STRIDE diagram description",
+        "thumbnail": "./public/content/images/thumbnail.stride.jpg",
+        "version": "2.6.2",
+        "cells": [],
+        "description": "Aliran unggah dokumen, pembuatan tautan sementara, akses penerima eksternal, dan pencatatan log audit."
+      }
+    ],
+    "diagramTop": 1,
+    "reviewer": "Dosen Praktikum",
+    "threatTop": 0
+  }
+}
