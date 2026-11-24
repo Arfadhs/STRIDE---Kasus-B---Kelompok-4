@@ -5,7 +5,7 @@
   "summary": {
     "title": "STRIDE - Kasus B - Kelompok 4",
     "owner": "Kelompok 4",
-    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup).\n[Asumsi 1]: Komunikasi antara browser pengguna dengan Backend Dokumen dienkripsi menggunakan HTTPS.\n[Asumsi 2]: Pemilik dokumen dan admin organisasi telah melalui proses autentikasi akun sebelum mengakses sistem.\n[Asumsi 3]: Database Metadata dan Object Storage berada di jaringan internal yang tidak dapat diakses langsung dari internet publik.\n[Asumsi 4]: Identitas tautan berbagi dibuat menggunakan token acak yang panjang, bukan nomor urut sederhana.",
+    "description": "Threat modeling sistem berbagi dokumen melalui tautan sementara (masa berlaku 24 jam). Ruang lingkup mencakup unggah file, pembuatan/pencabutan tautan, unduh oleh penerima eksternal tanpa login, dan pencatatan audit log (pengiriman tautan via email/chat di luar lingkup).",
     "id": 0
   },
   "detail": {
